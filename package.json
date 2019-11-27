@@ -1,0 +1,25 @@
+{
+  "name": "playground",
+  "version": "0.0.1",
+  "description": "Citizen OS playground for various stuff. CI, Git Actions etc",
+  "homepage": "https://citizenos.com",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/citizenos/playground.git"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@actions/core": "1.2.0",
+    "@actions/github": "1.1.0"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/citizenos/playground/issues"
+  },
+  "author": "",
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.4.1"
+  }
+}

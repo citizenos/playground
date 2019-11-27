@@ -1,6 +1,8 @@
 name: PR Duplicator
 
-on: [push, pull_request]
+on:
+  pull_request:
+    types: [opened]
 
 jobs:
   pr_duplicator:
@@ -14,6 +16,6 @@ jobs:
     - name: PR Duplicator
       uses: ./.github/actions/pr_duplicator
       with:
-        from: 'from_test'
-        base: 'base_test'
-        to: 'to_test'
+        from: 'pr_duplicator_test'
+        base: 'master'
+        to: 'pr_duplicator_test_to'

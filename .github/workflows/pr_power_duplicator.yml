@@ -1,6 +1,6 @@
 name: PR Duplicator
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   pr_duplicator:

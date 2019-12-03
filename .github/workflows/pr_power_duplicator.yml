@@ -2,7 +2,6 @@ name: PR Duplicator
 
 on:
   pull_request:
-    types: [opened]
 
 jobs:
   pr_duplicator:
@@ -19,3 +18,4 @@ jobs:
         from: 'pr_duplicator_test'
         base: 'master'
         to: 'pr_duplicator_test_to'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}

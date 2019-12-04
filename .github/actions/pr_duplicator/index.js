@@ -43,15 +43,15 @@ const runAction = async () => {
     // https://github.com/actions/toolkit/tree/master/packages/github
     const octokit = new GitHub(core.getInput('github-token'));
 
-    // https://octokit.github.io/rest.js/#octokit-routes-repos-get-branch
-    // https://developer.github.com/v3/repos/branches/#get-branch
-    //const branchFrom = await octokit.repos.getBranch({
-    //    owner: envOwner,
-    //    repo: envRepo,
-    //    branch: payloadFrom.ref
-    //});
-    //
-    //console.log('branchFrom RES', JSON.stringify(branchFrom, null, 2));
+     //https://octokit.github.io/rest.js/#octokit-routes-repos-get-branch
+     //https://developer.github.com/v3/repos/branches/#get-branch
+    const branchFrom = await octokit.repos.getBranch({
+        owner: envOwner,
+        repo: envRepo,
+        branch: payloadFrom.ref
+    });
+
+    console.log('branchFrom RES', JSON.stringify(branchFrom, null, 2), envOwner, envRepo, payloadFrom.ref);
 
     // https://octokit.github.io/rest.js/#octokit-routes-git-create-ref
     // https://developer.github.com/v3/git/refs/#create-a-reference

@@ -7,9 +7,7 @@ on:
       - master
 jobs:
   pr_duplicator:
-
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -21,4 +19,4 @@ jobs:
         base: 'master'
         to: 'pr_duplicator_test_to'
         pr-author: 'tiblu'
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{secrets.GITHUB_TOKEN}}

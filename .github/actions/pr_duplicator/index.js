@@ -7,13 +7,14 @@ const github = require('@actions/github');
 const runAction = async () => {
     core.debug(`PR Duplicator - Context ${github.context}`);
 
-    const [envOwner, envRepository] = process.env.GITHUB_REPOSITORY.split('/');
+    const envOwner = context.repo.owner;
+    const envRepo = context.repo.repo;
 
     const eventPayload = github.context.payload;
     const confFrom = core.getInput('from'); // Branch from which the PR was created (head)
     const confBase = core.getInput('base'); // Branch where the PR was requested
     const confTo = core.getInput('to'); // Branch to which the new PR is created
-    const prAuthor = core.getInput('pr_author'); // Who has to be author of the PR to be duplicated
+    const prAuthor = core.getInput('pr-author'); // Who has to be author of the PR to be duplicated
 
     if (!eventPayload || !eventPayload.pull_request) {
         throw new Error('INVALID CONFIGURATION: Invalid event type configuration, event payload must contain "pull_request" property. See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows#pull-request-event-pull_request');
@@ -31,20 +32,18 @@ const runAction = async () => {
     }
 
     if (prAuthor && payloadPullRequestAuthor !== prAuthor) {
-        return core.info(`SKIP! Skipping Action as the configured "pr_author" ("${prAuthor}") does not match the PR author in the payload ("${payloadPullRequestAuthor}")`);
+        return core.info(`SKIP! Skipping Action as the configured "pr-author" ("${prAuthor}") does not match the PR author in the payload ("${payloadPullRequestAuthor}")`);
     }
 
     // https://octokit.github.io/rest.js/
     // https://github.com/actions/toolkit/tree/master/packages/github
-    const octokit = new github.GitHub({
-        auth: `token ${core.getInput('github-token')}`
-    });
+    const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
 
     // https://octokit.github.io/rest.js/#octokit-routes-repos-get-branch
     // https://developer.github.com/v3/repos/branches/#get-branch
     const branchFrom = await octokit.repos.getBranch({
         owner: envOwner,
-        repo: envRepository,
+        repo: envRepo,
         branch: payloadFrom
     });
 
@@ -52,7 +51,7 @@ const runAction = async () => {
     // https://developer.github.com/v3/git/refs/#create-a-reference
     const branchCreated = await octokit.git.createRef({
         owner: envOwner,
-        repo: envRepository,
+        repo: envRepo,
         ref: `refs/heads/pr_duplicator_${branchFrom.name}_${payloadPullRequestId}`,
         sha: branchFrom.commit.sha
     });
@@ -61,7 +60,7 @@ const runAction = async () => {
     // https://developer.github.com/v3/pulls/#create-a-pull-request
     const pullRequestCreated = octokit.pulls.create({
         owner: envOwner,
-        repo: envRepository,
+        repo: envRepo,
         title: `AUTO: PR-Duplicator - "${payloadPullRequest.title}".`,
         body: `This pull request is automatically created by GitHub Action PR Duplicator. Created from: ${payloadPullRequest.url}`,
         head: branchCreated.ref,

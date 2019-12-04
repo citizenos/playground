@@ -20,5 +20,5 @@ jobs:
         from: 'pr_duplicator_test'
         base: 'master'
         to: 'pr_duplicator_test_to'
-        pr_author: 'tiblu'
+        pr-author: 'tiblu'
         github-token: ${{ secrets.GITHUB_TOKEN }}

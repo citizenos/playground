@@ -35,6 +35,10 @@ const runAction = async () => {
         return core.info(`SKIP! Skipping Action as the configured "pr-author" ("${prAuthor}") does not match the PR author in the payload ("${payloadPullRequestAuthor}")`);
     }
 
+    if (!payloadPullRequest.merged) {
+        return core.warning(`SKIP! Skipping Action as the closed PR has not been merged! PR url ${payloadPullRequest.url}`);
+    }
+
     // https://octokit.github.io/rest.js/
     // https://github.com/actions/toolkit/tree/master/packages/github
     const octokit = new GitHub(core.getInput('github-token'));

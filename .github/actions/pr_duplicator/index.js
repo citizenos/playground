@@ -51,6 +51,8 @@ const runAction = async () => {
         branch: payloadFrom.ref
     });
 
+    core.info('branchFrom RES', branchFrom);
+
     // https://octokit.github.io/rest.js/#octokit-routes-git-create-ref
     // https://developer.github.com/v3/git/refs/#create-a-reference
     const branchCreated = await octokit.git.createRef({
@@ -59,6 +61,8 @@ const runAction = async () => {
         ref: `refs/heads/pr_duplicator_${branchFrom.name}_${payloadPullRequestId}`,
         sha: branchFrom.commit.sha
     });
+
+    core.info('branchCreated RES', branchCreated);
 
     // https://octokit.github.io/rest.js/#octokit-routes-pulls-create
     // https://developer.github.com/v3/pulls/#create-a-pull-request
@@ -71,6 +75,8 @@ const runAction = async () => {
         base: confTo,
         maintainer_can_modify: false
     });
+
+    core.info('pullRequestCreated RES', pullRequestCreated);
 
     core.info(`Pull request has been created - ${pullRequestCreated.url}`);
 };

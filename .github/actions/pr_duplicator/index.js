@@ -37,7 +37,7 @@ const runAction = async () => {
 
     // https://octokit.github.io/rest.js/
     // https://github.com/actions/toolkit/tree/master/packages/github
-    const octokit = new GitHub(process.env.GITHUB_TOKEN);
+    const octokit = new GitHub(core.getInput('github-token'));
 
     // https://octokit.github.io/rest.js/#octokit-routes-repos-get-branch
     // https://developer.github.com/v3/repos/branches/#get-branch

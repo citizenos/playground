@@ -13,10 +13,15 @@ inputs:
     description: 'To which branch the PR is expected to be created is about to be duplicated. So the new PR is from "from" to "to".'
     required: true
     default: 'prod'
-  pr_author:
+  github-token:
+    description: 'GitHub token to make GitHub API calls',
+    required: true,
+  pr-author:
       description: 'Username of the author of the PR whos PRs are allowed to be duplicated. IF not present, all authorsare valid.'
       required: false
       default: 'tiblu'
+
+
 runs:
   using: 'node12'
   main: 'index.js'

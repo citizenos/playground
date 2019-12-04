@@ -1,16 +1,16 @@
 'use strict';
 
 const core = require('@actions/core');
-const github = require('@actions/github');
+const { GitHub, context } = require('@actions/github');
 
 
 const runAction = async () => {
-    core.debug(`PR Duplicator - Context ${github.context}`);
+    core.debug(`PR Duplicator - Context ${context}`);
 
     const envOwner = context.repo.owner;
     const envRepo = context.repo.repo;
 
-    const eventPayload = github.context.payload;
+    const eventPayload = context.payload;
     const confFrom = core.getInput('from'); // Branch from which the PR was created (head)
     const confBase = core.getInput('base'); // Branch where the PR was requested
     const confTo = core.getInput('to'); // Branch to which the new PR is created
@@ -37,7 +37,7 @@ const runAction = async () => {
 
     // https://octokit.github.io/rest.js/
     // https://github.com/actions/toolkit/tree/master/packages/github
-    const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
+    const octokit = new GitHub(process.env.GITHUB_TOKEN);
 
     // https://octokit.github.io/rest.js/#octokit-routes-repos-get-branch
     // https://developer.github.com/v3/repos/branches/#get-branch
@@ -76,6 +76,6 @@ runAction()
         core.info('OK!');
     })
     .catch(function (err) {
-        console.error('ERROR', err, github.context);
+        console.error('ERROR', err, context);
         core.setFailed(err.message);
     });

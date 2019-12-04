@@ -51,7 +51,7 @@ const runAction = async () => {
         branch: payloadFrom.ref
     });
 
-    core.info('branchFrom RES', branchFrom);
+    console.log('branchFrom RES', JSON.stringify(branchFrom, null, 2));
 
     // https://octokit.github.io/rest.js/#octokit-routes-git-create-ref
     // https://developer.github.com/v3/git/refs/#create-a-reference
@@ -62,7 +62,7 @@ const runAction = async () => {
         sha: branchFrom.commit.sha
     });
 
-    core.info('branchCreated RES', branchCreated);
+    console.log('branchCreated RES',  JSON.stringify(branchCreated, null, 2));
 
     // https://octokit.github.io/rest.js/#octokit-routes-pulls-create
     // https://developer.github.com/v3/pulls/#create-a-pull-request
@@ -76,9 +76,9 @@ const runAction = async () => {
         maintainer_can_modify: false
     });
 
-    core.info('pullRequestCreated RES', pullRequestCreated);
+    console.log('pullRequestCreated RES',  JSON.stringify(pullRequestCreated, null, 2));
 
-    core.info(`Pull request has been created - ${pullRequestCreated.url}`);
+    console.log(`Pull request has been created - ${pullRequestCreated.url}`);
 };
 
 runAction()

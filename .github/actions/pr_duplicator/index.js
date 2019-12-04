@@ -45,13 +45,13 @@ const runAction = async () => {
 
     // https://octokit.github.io/rest.js/#octokit-routes-repos-get-branch
     // https://developer.github.com/v3/repos/branches/#get-branch
-    const branchFrom = await octokit.repos.getBranch({
-        owner: envOwner,
-        repo: envRepo,
-        branch: payloadFrom.ref
-    });
-
-    console.log('branchFrom RES', JSON.stringify(branchFrom, null, 2));
+    //const branchFrom = await octokit.repos.getBranch({
+    //    owner: envOwner,
+    //    repo: envRepo,
+    //    branch: payloadFrom.ref
+    //});
+    //
+    //console.log('branchFrom RES', JSON.stringify(branchFrom, null, 2));
 
     // https://octokit.github.io/rest.js/#octokit-routes-git-create-ref
     // https://developer.github.com/v3/git/refs/#create-a-reference
@@ -59,14 +59,14 @@ const runAction = async () => {
         owner: envOwner,
         repo: envRepo,
         ref: `refs/heads/pr_duplicator_${branchFrom.name}_${payloadPullRequestId}`,
-        sha: branchFrom.commit.sha
+        sha: payloadFrom.sha
     });
 
     console.log('branchCreated RES',  JSON.stringify(branchCreated, null, 2));
 
     // https://octokit.github.io/rest.js/#octokit-routes-pulls-create
     // https://developer.github.com/v3/pulls/#create-a-pull-request
-    const pullRequestCreated = octokit.pulls.create({
+    const pullRequestCreated = await octokit.pulls.create({
         owner: envOwner,
         repo: envRepo,
         title: `AUTO: PR-Duplicator - "${payloadPullRequest.title}".`,

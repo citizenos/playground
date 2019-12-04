@@ -11,9 +11,12 @@
   "scripts": {},
   "dependencies": {
     "@actions/core": "1.2.0",
-    "@actions/github": "1.1.0"
+    "@actions/github": "1.1.0",
+    "@octokit/rest": "16.35.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "6.7.2"
+  },
   "bugs": {
     "url": "https://github.com/citizenos/playground/issues"
   },

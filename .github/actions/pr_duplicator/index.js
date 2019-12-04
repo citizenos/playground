@@ -48,7 +48,7 @@ const runAction = async () => {
     const branchFrom = await octokit.repos.getBranch({
         owner: envOwner,
         repo: envRepo,
-        branch: payloadFrom
+        branch: payloadFrom.ref
     });
 
     // https://octokit.github.io/rest.js/#octokit-routes-git-create-ref

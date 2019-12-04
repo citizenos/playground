@@ -1,7 +1,7 @@
 name: 'PR Duplicator'
 description: 'Duplicate a PR to another branch. Checks if there is a PR to "from" branch to "base" branch, IF there is duplicates it as PR "from" to "to".'
 inputs:
-  from:  # id of input
+  from:
     description: 'From which branch the PR is expected to be which is about to be duplicated.'
     required: true
     default: 'l10n_master'
@@ -14,14 +14,12 @@ inputs:
     required: true
     default: 'prod'
   github-token:
-    description: 'GitHub token to make GitHub API calls',
-    required: true,
+    description: 'GitHub token to make GitHub API calls'
+    required: true
   pr-author:
-      description: 'Username of the author of the PR whos PRs are allowed to be duplicated. IF not present, all authorsare valid.'
-      required: false
-      default: 'tiblu'
-
-
+    description: 'Username of the author of the PR whos PRs are allowed to be duplicated. IF not present, all authorsare valid.'
+    required: false
+    default: 'tiblu'
 runs:
   using: 'node12'
   main: 'index.js'

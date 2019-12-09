@@ -20,6 +20,9 @@ inputs:
     description: 'Username of the author of the PR whos PRs are allowed to be duplicated. IF not present, all authorsare valid.'
     required: false
     default: 'tiblu'
+  slack-incoming-webhook-url:
+    description: 'Slack incoming webhook url to notify about GitHub Action run. Read more - https://api.slack.com/messaging/webhooks'
+    required: false
 runs:
   using: 'node12'
   main: 'index.js'

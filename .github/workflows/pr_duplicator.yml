@@ -5,6 +5,7 @@ on:
     types: [closed]
     branches:
       - master
+    paths:
 jobs:
   pr_duplicator:
     runs-on: ubuntu-latest
@@ -20,3 +21,4 @@ jobs:
         to: 'pr_duplicator_test_to'
         pr-author: 'tiblu'
         github-token: ${{secrets.GITHUB_TOKEN}}
+        slack-incoming-webhook-url: ${{secrets.SLACK_INCOMING_WEBHOOK_URL}}

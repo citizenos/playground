@@ -11,12 +11,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - run: npm install
     - name: PR Duplicator
-      uses: ./.github/actions/pr_duplicator
+      uses: citizenos/github-action-pr-duplicator@master
       with:
         from: 'pr_duplicator_test'
         base: 'master'
         to: 'pr_duplicator_test_to'
         pr-author: 'tiblu'
         github-token: ${{secrets.GITHUB_TOKEN}}
+        slack-incoming-webhook-url: ${{secrets.SLACK_INCOMING_WEBHOOK_URL}}
